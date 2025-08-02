@@ -850,3 +850,704 @@ Complete database schema
 All RESTful endpoints
 Fetching strategies (backend + frontend)
 develop the backend and connect the database and fetch the dada from the database intigrate complete full ingigration of backend and  frontend and database
+Build a Complete Property & Restaurant Management Platform
+Project Summary
+Create a full-stack web application for property and restaurant management. This system will use:
+
+Frontend: React.js + TypeScript
+
+Backend: Node.js (Express) + TypeScript
+
+Database: PostgreSQL
+
+Authentication: Dummy login (admin / admin as credentials)
+
+Requirements Overview
+Main Features:
+Property management (listings, rooms, booking calendar, policies, etc.)
+
+Complete restaurant module (orders, menu, tables, billing)
+
+Dashboard with KPIs (arrivals, departures, booked %, tables, revenue)
+
+Calendar and Excel-like reservation management
+
+Real-time data sync (orders, billing)
+
+Integrated detailed views, search, filters, communication
+
+Full admin management from a single dashboard
+
+Data Flow
+RESTful APIs: Express routes as described below.
+
+Database: Provided schema (see below).
+
+Frontend: React components fetch data via Axios.
+
+--
+
+1️⃣ Database: Create the following PostgreSQL tables
+sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE properties (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  rating INT,
+  languages TEXT[],
+  address TEXT,
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION
+);
+
+CREATE TABLE rooms (
+  id SERIAL PRIMARY KEY,
+  property_id INT REFERENCES properties(id),
+  room_number VARCHAR(10),
+  room_type TEXT,
+  size INT,
+  beds TEXT,
+  bathroom_type TEXT,
+  amenities TEXT[],
+  price NUMERIC,
+  status TEXT DEFAULT 'available'
+);
+
+CREATE TABLE reservations (
+  id SERIAL PRIMARY KEY,
+  guest_name TEXT,
+  contact_number TEXT,
+  source TEXT,
+  check_in DATE,
+  check_out DATE,
+  room_id INT REFERENCES rooms(id),
+  status TEXT DEFAULT 'confirmed',
+  total_price NUMERIC
+);
+
+CREATE TABLE menus (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  description TEXT
+);
+
+CREATE TABLE menu_items (
+  id SERIAL PRIMARY KEY,
+  menu_id INT REFERENCES menus(id),
+  name TEXT,
+  description TEXT,
+  price NUMERIC,
+  image_url TEXT,
+  category TEXT,
+  tags TEXT[],
+  available BOOLEAN DEFAULT true
+);
+
+CREATE TABLE restaurant_tables (
+  id SERIAL PRIMARY KEY,
+  table_number INT,
+  seats INT,
+  status TEXT DEFAULT 'available'
+);
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  order_source TEXT,
+  table_id INT,
+  room_id INT,
+  status TEXT DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE order_items (
+  id SERIAL PRIMARY KEY,
+  order_id INT REFERENCES orders(id),
+  item_id INT REFERENCES menu_items(id),
+  quantity INT,
+  special_instructions TEXT
+);
+2️⃣ Backend: Node.js + Express + TypeScript APIs
+Set up:
+
+Use Express for API routing. Connect with PostgreSQL using the pg module.
+
+Use TypeScript throughout.
+
+Implement the following API endpoints:
+
+POST /api/login: Check username/password in users. Hardcode admin/admin for now.
+
+GET /api/dashboard/kpi: Counts for arrivals, departures, booked rooms % (today).
+
+GET /api/dashboard/reservations?type=arrivals|departures|stayovers|inhouse: Dynamic table queries.
+
+POST /api/reservations: Insert new reservation, update room status.
+
+GET /api/calendar/reservations?start=YYYY-MM-DD&end=YYYY-MM-DD: Fetch reservations in date range.
+
+GET /api/reservations/:id: Show joined reservation, room, property data.
+
+PATCH /api/reservations/:id: Update reservation.
+
+Property & Room setup: POST/GET for /api/properties, /api/rooms
+
+Menu Management: Fetch/add/update/delete menus and items.
+
+Orders: Fetch/add/update orders.
+
+Billing: View all tables, per-table bill summary, mark as paid.
+
+Sample Express Setup:
+
+typescript
+import express from 'express';
+import pg from 'pg';
+import bodyParser from 'body-parser';
+
+const app = express();
+app.use(bodyParser.json());
+const pool = new pg.Pool({ /* Postgres connection config */ });
+
+// Login route, dashboard, reservations, menus, orders, billing, etc.
+3️⃣ Frontend: React.js + TypeScript
+Use functional components and hooks.
+
+Use Axios for all API calls as in your sample code.
+
+Route structure:
+
+/login → Login screen
+
+/dashboard → KPIs and tables (reservations, arrivals, departures, stayovers, inhouse, calendar)
+
+/properties → Property setup
+
+/rooms → Room setup
+
+/restaurant/orders → Orders board
+
+/restaurant/menus → Menu management
+
+/restaurant/billing → Table billing overview
+
+/settings → (Future: staff, inventory, etc.)
+
+Component patterns:
+
+Dashboard KPIs: Fetch on mount.
+
+Reservation tables: Tabbed Excel-like, fetch on tab change.
+
+Menu: Create, edit, delete menus/items.
+
+Orders: Board/tab showing order status, source.
+
+Billing: Show tables, bills, payments.
+
+Example API fetch (see your code samples):
+
+tsx
+useEffect(() => {
+  axios.get('/api/dashboard/kpi').then(res => setKPI(res.data));
+}, []);
+4️⃣ Initial User Setup
+In users table, insert: username: admin, password: admin (plain for demo only).
+
+No authentication middleware for now – check against this for login simulation.
+
+5️⃣ Data Integration
+Each API must connect to PostgreSQL with correct queries as defined by schema.
+
+Frontend must mirror the UI workflow exactly as described (see navigation and dashboard/features).
+
+Reservations, menus, orders, tables → each is fully CRUD via APIs.
+
+6️⃣ Deployment & Running
+Provide docker-compose.yml (optional) for database and backend.
+
+Provide README.md with start instructions:
+
+Backend: npm run start
+
+Frontend: npm run start
+
+Database: createdb ... or via Docker
+
+Bolt.ai Instructions
+⚡️ Task: Scaffold the entire solution above: database, backend, frontend, and all API & data flows as described. Follow the schemas, endpoints, flows, and technical details exactly as outlined for a production-ready property & restaurant management system demo.
+
+This technical prompt will fully guide Bolt.ai to create your requested system with complete backend/database integration and frontend flows, ready for further customization and deployment.
+
+give complete each feature description and technical implementation and flow
+give complete each feature description and technical implementation and flow
+Here is a comprehensive, feature-by-feature breakdown of your Property & Restaurant Management System — with clear descriptions, technical implementation details, and data flow for both frontend and backend.
+
+Feature-wise Breakdown: Description, Implementation & Flow
+1. Login & Authentication
+Description
+Purpose: Prevent unauthorized access to the Manager Dashboard; at this stage, just a placeholder with default credentials (admin/admin).
+
+Flow: Landing page → Login form → (if creds correct) → Dashboard.
+
+Implementation
+Backend
+POST /api/login
+
+Read username/password from POST body.
+
+Query users table. For demo: match admin/admin.
+
+On success: reply { success: true }
+
+(No JWT/session implemented in MVP)
+
+Frontend
+Simple form: on submit, POST to /api/login.
+
+If success: store login flag in local state, redirect to /dashboard.
+
+2. Manager Dashboard (KPI Overview)
+Description
+Shows: Today’s Arrivals, Departures, Accommodation % Booked.
+
+Visual: KPI cards, current date/time, quick new reservation.
+
+Implementation
+Backend
+GET /api/dashboard/kpi
+
+Count arrivals: SELECT COUNT(*) FROM reservations WHERE check_in = today
+
+Count departures: SELECT COUNT(*) FROM reservations WHERE check_out = today
+
+Count booked rooms:
+
+SELECT COUNT(*) FROM rooms WHERE status != 'available'
+
+For %: divide booked by total rooms
+
+Frontend
+On mount, call /api/dashboard/kpi. Display cards with results.
+
+3. Reservation Table View (Arrivals, Departures, Stayovers, In-house)
+Description
+Excel-style tables: Show filtered lists of reservations for each type.
+
+Actions: Check-in, cancel, etc.
+
+Implementation
+Backend
+GET /api/dashboard/reservations?type=
+
+arrivals: check_in = today
+
+departures: check_out = today
+
+stayovers: check_in < today AND check_out > today
+
+inhouse: status = 'checked-in'
+
+Frontend
+Tabs for each type; on tab switch, fetch with corresponding query param.
+
+Display in table; on row actions (check-in, cancel), send PATCH.
+
+4. Reservation – Detailed View
+Description
+Panel/Modal: Full guest, booking, payment, and communication details.
+
+Implementation
+Backend
+GET /api/reservations/:id
+
+Query with joins to rooms, properties for rich detail.
+
+Frontend
+On row click, fetch reservation detail. Render panel with sections for guest info, booking, payment, communication.
+
+5. Reservation – Actions
+Description
+Actions: Modify Dates, Cancel, No-show, Mark Paid, Internal Notes.
+
+Implementation
+Backend
+PATCH /api/reservations/:id
+
+Update fields like status, dates, internal notes.
+
+Invoice: Compose download via /api/reservations/:id/invoice (PDF, optional).
+
+Frontend
+Show form/actions.
+
+On update, call PATCH; on invoice, trigger download.
+
+6. Calendar View
+Description
+Visual calendar: Color-coded booking status for each room/day.
+
+Actions: Click to add/edit reservation.
+
+Implementation
+Backend
+GET /api/calendar/reservations?start=YYYY-MM-DD&end=YYYY-MM-DD
+
+Query reservations in range, group by room/day.
+
+Frontend
+Use calendar package. On view change (date/week), fetch data, color cells; add/edit integration triggers dialog.
+
+7. Property Listing & Setup
+Description
+CRUD properties (name, type, address, etc).
+
+CRUD rooms (numbers, types, sizes, amenities).
+
+Implementation
+Backend
+/api/properties: GET, POST
+
+/api/rooms: GET, POST
+
+Frontend
+Forms to add/edit property, room. List all on management page.
+
+8. Menu Management
+Description
+Menus: Multiple (breakfast, lunch, etc) with items.
+
+Menu Items: CRUD items (name, desc, price, photo, tags, on/off).
+
+Reordering: (Optional)
+
+Implementation
+Backend
+GET /api/menus, POST /api/menus, POST /api/menus/:id/items, PATCH/DELETE /api/menu-items/:id
+
+Frontend
+List menus, items. Form dialogs for add/edit. Toggle buttons for on/off, delete, reorder (drag & drop if enabled).
+
+9. Order Management
+Description
+Types: Table (QR), Walk-in, Room Service.
+
+Status: Pending → Preparing → Ready → Served/Completed.
+
+See: Order time, source, items, duration, payment.
+
+Implementation
+Backend
+GET /api/orders
+
+POST /api/orders
+
+PATCH /api/orders/:id/status
+
+Update order status accordingly.
+
+Frontend
+Live-updating order dashboard, sorted by status/type.
+
+Controls to advance status, mark as paid.
+
+10. Table/Billing Management
+Description
+Table Map: See all tables, status (available, occupied, reserved).
+
+Action: Click occupied table → See order summary, print bill, mark as paid.
+
+Implementation
+Backend
+GET /api/billing/tables: Show all tables, status.
+
+GET /api/billing/:tableId: All active orders/items for table.
+
+POST /api/billing/:tableId/pay: Mark orders as paid, set table status to 'available'.
+
+Frontend
+Visual grid/table map (cards or floor view). Bill panel with summary; payment/printing actions.
+
+11. Inventory/Staff/Stats/Feedback (For future extension)
+Description
+Placeholder pages/DB. Prepare CRUD patterns for inventory and staff.
+
+Implementation
+Backend
+Extendable: /api/inventory, /api/staff, /api/feedback, /api/stats
+
+Frontend
+Form+tables, similar to other modules.
+
+12. Communication & Messaging
+Description
+Built-in chat: Per guest/room; auto templates; multi-language.
+
+Implementation
+Backend
+Table: messages (id, reservation_id, msg, sender, sent_at)
+
+GET /api/messages/:reservationId
+
+POST /api/messages/:reservationId
+
+Frontend
+Chat UI in reservation detail. Message input, template buttons, translation where needed.
+
+13. Payment Handling
+Description
+Show if paid, at property/OTA, card/cash, invoice generation.
+
+Implementation
+Backend
+Payment fields in reservations; virtual card fields as applicable.
+
+Frontend
+Display in reservation panels/bills. Mark as paid, change status.
+
+Typical Data Flow Example
+Frontend (React)
+
+User action triggers Axios request (e.g., POST to create booking).
+
+On success, UI reloads affected data.
+
+Backend (Express/TypeScript)
+
+Route/controller parses request, builds SQL query.
+
+Uses pg module to communicate with PostgreSQL DB.
+
+Returns JSON response with data/results.
+
+Database (PostgreSQL)
+
+Schema as previously provided.
+
+Summary Table of Feature Flows
+Feature	Frontend UI	API Endpoint(s)	DB Table(s)	Key Backend Logic
+Login	Login form	POST /api/login	users	Authenticate user
+Dashboard KPIs	KPI cards, summary	GET /api/dashboard/kpi	reservations, rooms	Aggregation queries
+Reservations	Table views, tabs	GET /api/dashboard/reservations	reservations, rooms	WHERE clause logic, lists
+Reservation Detail	Modal/panel	GET /api/reservations/:id	+ JOINs	Join guest, room, payment info
+Calendar	Calendar grid	GET /api/calendar/reservations	reservations	Range queries, group per day/room
+Menu Management	CRUD forms/lists	GET/POST/PATCH /api/menus/items	menus, menu_items	Insert/update menus, items
+Orders	Order board/list	GET/POST/PATCH /api/orders	orders, order_items	Insert, update status, live fetch
+Billing/Tables	Table map, billing	GET /api/billing; POST /api/billing/:tableId/pay	restaurant_tables, orders	Mark paid, set table available
+Property/Room Setup	CRUD forms	GET/POST /api/properties/rooms	properties, rooms	Create/read/update property details
+Communication	Chat interface	GET/POST /api/messages/:reservationId	messages	Messaging, template replies, i18n
+By following these architectural and technical details, you ensure end-to-end feature delivery—each with clear user-facing behavior, DB/API wiring, and clean separation between backend and frontend, all compliant with the initial requirements.
+
+ui desine promt
+ui desine promt
+Certainly! Below is a detailed UI design prompt crafted for a Property and Restaurant Management System, aligned with your tech stack (React + TypeScript). You can use this prompt to guide designers or AI-based UI design tools to create clear, consistent, and user-friendly interfaces for each feature of your platform.
+
+UI Design Prompt for Property & Restaurant Management System
+Project Overview
+Design a modern, clean, and professional admin dashboard for a Property and Restaurant Management Platform. The UI should be intuitive, responsive, and focused on enhancing admin productivity with quick access to the most important data and actions.
+
+Design Style
+Theme: Light mode with optional dark mode toggle
+
+Color Palette: Use calm, business-friendly colors (navy, teal, soft grays, white background, accent color for CTAs and alerts)
+
+Typography: Clean, readable fonts like “Inter” or “Roboto”
+
+Components: Use modern UI components such as cards, tables, modals, tabs, sidebars, toggles, and badges
+
+Animations: Subtle transitions on hover and load for smooth UX
+
+Accessibility: Ensure color contrasts and font sizes meet WCAG standards
+
+General Layout
+Top Navigation Bar:
+
+Logo on the left
+
+Current date and time indicator at center/right
+
+User profile dropdown on the right (even if dummy login now)
+
+Main navigation items: Hospitality, Restaurant, Inventory, Feedback, Stats & Tally, Staff Management
+
+Sidebar (for Restaurant module or detailed settings)
+
+Collapsible with icons and labels
+
+Sections like Orders, Menu Management, Billing
+
+Main Content Area:
+
+Dynamic area where dashboards, tables, forms, calendars, etc. appear based on navigation
+
+Responsive:
+
+Flexible grid layout adapting well from desktop to tablet
+
+Mobile-friendly collapsible sidebars and menus
+
+Feature-wise UI Description
+1. Login Screen
+Centered login card with:
+
+Title: "Admin Login"
+
+Text inputs for Username & Password with placeholders
+
+Submit button: “Sign In” (primary button color)
+
+Error message shown below inputs on failed login
+
+Minimal footer with copyright or version number
+
+2. Manager Dashboard (KPI Overview)
+Top date & time display (prominent)
+
+Row of 3 large KPI cards: Arrivals, Departures, Accommodation Booked (%)
+
+Each card with an icon (e.g., calendar, door, bed)
+
+Primary numbers large, secondary text small below
+
+"New Reservation" button (bright accent color) above KPI cards on right
+
+Reservation Tabs (Arrivals, Departures, Stayovers, In-House):
+
+Tab bar below KPIs
+
+Each tab displays a table:
+
+Columns: Guest Name, Contact, Source, Room/Status, Actions (check-in, cancel)
+
+Sortable columns with header icons
+
+Row hover highlighting
+
+Pagination or infinite scroll for long lists
+
+3. Calendar View
+Month/week/day toggle control at top left
+
+Color-coded blocks on calendar days:
+
+Green for Available
+
+Blue for Booked
+
+Yellow for Maintenance
+
+Tooltip or click shows booking details
+
+Floating "Add Reservation" circular button on bottom right
+
+4. Reservation Detailed Panel (Slide-in from right or Modal)
+Sections with collapsible headers:
+
+Guest Info (editable text fields)
+
+Booking Info (dates, room, status dropdown)
+
+Price Breakdown (styled list)
+
+Payment Details (status badges, method icons)
+
+Special Requests (textarea)
+
+Communication Chat (scrollable message list + input box)
+
+Action buttons fixed footer: Save, Cancel, Cancel Reservation, Invoice Download
+
+5. Property & Room Management
+Property listing as card grid or table with filters
+
+‘Add Property’ button launches create form modal
+
+Room setup form with multi-step wizard style for complex details:
+
+Room type, size, beds, amenities (checkbox group), price
+
+Image uploader with drag & drop and preview thumbnails
+
+Validation messages on fields (e.g., required fields)
+
+6. Menu Management (Restaurant)
+Left sidebar or top tabs for multiple menus (Breakfast, Lunch, Dinner)
+
+Menu item list with:
+
+Image thumbnail, name, category badge, price, availability toggle
+
+Edit & delete icon buttons
+
+Add new item inline or via modal form
+
+Drag and drop reorder handle (optional)
+
+Toggle switch styled cleanly (rounded, with color changes)
+
+7. Orders Dashboard
+Table or card list grouped by order status (Pending, Preparing, Ready, Served)
+
+Filters by order type (Table QR, Walk-in, Room Service)
+
+Each order card shows summary:
+
+Order ID, Source (table/room), time elapsed, status badge
+
+List of items ordered with small thumbnails
+
+Action buttons: Update Status → dropdown, Mark Paid checkbox/button
+
+8. Billing Overview (Restaurant Tables)
+Visual grid/floor plan of tables as cards
+
+Color-coded status badges (Available: green, Occupied: red, Reserved: yellow)
+
+Click card opens sliding billing panel:
+
+Itemized order list with qty, price, subtotal/taxes/total
+
+Payment method select dropdown
+
+Buttons: Print Bill, Mark as Paid
+
+Clear indication of payment status
+
+UI Components & Interaction Details
+Buttons: Rounded corners, shadows on hover, disabled states clearly visible
+
+Inputs: Clear borders, with focus highlight colors matching brand palette
+
+Tables: Sortable columns, zebra striping for readability
+
+Notifications: Toast popups for success/error messages on actions (booking, payment)
+
+Loading indicators: Spinners or skeleton loaders on data fetches
+
+Validation: Inline, immediate on form fields with friendly messages
+
+Deliverables for UI Design
+High fidelity wireframes or mockups for all screens above (desktop & tablet views)
+
+Interactive prototype showcasing:
+
+Dashboard workflow with KPI and reservation tabs
+
+Calendar navigation and new booking
+
+Menu management CRUD flows
+
+Restaurant orders update & billing payment flow
+
+Style guide:
+
+Color variables, typography scales, button styles
+
+Form input styles and validation states
+
+Icons and badges usage guide
