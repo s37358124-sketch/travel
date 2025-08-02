@@ -1,0 +1,852 @@
+Dashboard section:
+whare it disply the date and create new reservation button
+thare will be arrivals kpi card,departures kip crads ,accommodations booked percentage kpi card
+below thare will be  resevations table view like a excel I that thare are multiple table arrivals ,departures,stayovers,in-house guests
+
+I am building well featured property and resturent management website
+
+tech stack:
+frontend:react,typescript
+backend:node.js,typescript
+database:postgreSQL
+authentication:dont use any authantication as of now ow give the login credetials user:admin password:admin
+Property and Restaurant Management Website – Project Overview
+🔧 Tech Stack
+Frontend: React.js with TypeScript
+→ We are using React to build a fast, interactive, and scalable frontend. TypeScript is used to add static typing, improve code quality, and reduce runtime errors.
+
+Backend: Node.js with TypeScript
+→ The backend is built using Node.js for efficient, event-driven server-side logic. TypeScript enhances maintainability and provides better tooling with IntelliSense and type safety.
+
+Database: PostgreSQL
+→ A PostgreSQL database is used for storing and managing structured data such as property listings, restaurant menus, orders, bookings, inventory, etc. It is reliable, supports complex queries, and integrates well with Node.js.
+
+Authentication: No user authentication is implemented at this stage.
+→ For initial testing and development, authentication is disabled. However, a default login credential is provided to access admin functionalities.
+
+Username: admin
+
+Password: admin
+
+🌐 Website Description – Property and Restaurant Management System
+This is a feature-rich web application designed to manage both hospitality (property) and restaurant operations from a single platform. The system allows businesses to handle property listings, bookings, room configurations, restaurant menus, orders, billing, and inventory – all in one place.
+
+🔐 Login & Navigation Flow
+The website begins with a landing page featuring a "Sign In" button.
+
+When the user clicks on the Sign In button:
+
+A login form appears where the user must enter the demo credentials:
+
+Username: admin
+
+Password: admin
+
+After entering the correct credentials, the user is redirected to the Manager Dashboard.
+
+The Manager Dashboard serves as the control center for both the property management and restaurant management modules.
+
+description of he manager dashboard:
+
+📊 Manager Dashboard – Overview
+After a successful login, the user is directed to the Manager Dashboard. This is the central hub where the admin can access and manage all major operations of the system.
+
+At the top of the dashboard, there is a Top Navigation Bar containing the following sections:
+
+Hospitality
+
+Restaurant
+
+Inventory
+
+Feedback
+
+Stats & Tally
+
+Staff Management
+
+Each section plays a crucial role in efficiently managing the business operations. Here's a detailed explanation of each:
+
+📊 Dashboard
+The Dashboard provides a quick snapshot of daily activities and room status.
+
+🔹 Features:
+Current Date and Time Display: Visible at the top for real-time reference.
+
+"New Reservation" Button: Allows the user to quickly book available rooms.
+
+🔹 KPI Cards:
+Arrivals: Displays the total number of guests scheduled to arrive today.
+
+Departures: Shows the number of guests set to check out today.
+
+Accommodation Booked (%): Shows the percentage of rooms currently booked out of the total inventory.
+
+🔹 Reservation Table View:
+Below the KPIs, there is a dynamic Excel-like table view split into the following categories:
+
+Arrivals:
+
+Lists guests scheduled to arrive today.
+
+Includes guest name, contact number, and source (e.g., Airbnb, Booking.com, Walk-in, etc.).
+
+Allows the user to check-in the guest or cancel the reservation.
+
+Departures:
+
+Shows guests who are scheduled to check out today.
+
+Based on their checkout timings, the admin can view and manage their departure process.
+
+Stayovers:
+
+Guests who are continuing their stay beyond today.
+
+Helps in identifying long-stay guests or ongoing reservations.
+
+In-House Guests:
+
+Displays guests who are currently checked-in.
+
+Includes their stay duration, room number, and status.
+
+🗓️ Calendar
+A visual calendar view to:
+
+Check availability of rooms across dates.
+
+View and manage confirmed, pending, and cancelled bookings.
+
+Color-coded blocks to indicate booking status (Available, Booked, Maintenance, etc.).
+
+Easily navigate to a particular day to create or edit bookings.
+
+📋 Reservation – Detailed View
+The Reservation section provides a complete management interface for all room bookings. It functions similarly to the Dashboard’s table view but offers deeper control, more detailed insights, and additional functionality like billing, modifications, communication, and export options.
+
+🗂️ Reservation List View
+Displays a comprehensive table of:
+
+✅ Current bookings
+
+🕒 Upcoming reservations
+
+📆 Past stays
+
+❌ Canceled or no-show bookings
+
+🔍 Filter and Search Options:
+Users can easily filter or search reservations using:
+
+Guest name
+
+Check-in / Check-out date
+
+Booking number
+
+Status (e.g., Confirmed, Cancelled, No-show)
+
+🧾 Reservation Details View
+Clicking on any reservation opens a detailed panel containing:
+
+Guest Information:
+
+Full name
+
+Contact number/email
+
+Booking Information:
+
+Booking date
+
+Check-in and Check-out dates
+
+Room type and room number
+
+Number of guests
+
+Booking source (e.g., Airbnb, Booking.com, Walk-in)
+
+Reservation status (Confirmed, Cancelled, No-show, etc.)
+
+Price Breakdown:
+
+Room rate
+
+Taxes
+
+Fees (service, cleaning, etc.)
+
+OTA commissions (if applicable)
+
+Payment Details:
+
+Paid online or at the property
+
+Partial or full payment
+
+Payment method (UPI, card, cash, virtual card)
+
+Invoice download option
+
+Special Requests:
+
+Late check-in
+
+Food preferences
+
+Room preferences
+
+💬 Guest Communication
+Built-in messaging system to communicate with guests.
+
+Direct Chat Interface:
+
+Allows real-time communication.
+
+Supports manual replies or automated messages (e.g., booking confirmation, reminders).
+
+Message Templates:
+
+Quick replies for common queries (e.g., check-in time, parking info).
+
+Multi-language Support:
+
+Automatically translate messages for international guests.
+
+💳 Payment Information
+Displays details about how and when payment is collected.
+
+Was payment collected by an OTA (e.g., Booking.com)?
+
+Does payment need to be collected at the property?
+
+Virtual credit card details (if supported).
+
+Scheduled payments or partial deposits.
+
+Invoice generation and billing summary.
+
+✏️ Modification Options
+Admins can manage bookings with the following actions:
+
+Modify Reservation:
+
+Change dates, guest count, or room type (if allowed).
+
+Cancel Reservation:
+
+Cancel and update the booking status.
+
+Mark as No-Show:
+
+Flag guests who didn’t arrive.
+
+Report Misconduct:
+
+File internal notes or flags for problematic guests.
+
+🗓️ Calendar Integration
+Fully synced with the property’s booking calendar.
+
+Ensures real-time availability.
+
+Prevents overlapping bookings and manual double-booking errors.
+
+🖨️ Print and Export Options
+Export the entire reservation list to:
+
+Excel (.xlsx)
+
+PDF (.pdf)
+
+Print individual guest reservation details for records or guest handovers.
+
+🏨 Property Listing – Features Overview (Booking.com Style)
+This module allows property managers to set up and list their properties with complete configuration for room types, pricing, policies, and more—just like platforms such as Booking.com, Airbnb, or Agoda.
+
+📝 Basic Property Info Allows the property owner to provide fundamental identification details:
+Property Name
+
+Property Type (e.g., Hotel, Apartment, Guesthouse, Villa)
+
+Star Rating (Optional)
+
+Languages Spoken (for international guest transparency)
+
+📍 Location Details Crucial for search visibility and guest assurance:
+Full Address (with Google Maps validation)
+
+Nearby Landmarks (e.g., airport, city center, tourist spots)
+
+Geo-Coordinates (Latitude & Longitude — auto-detected or manually added)
+
+🛏️ Room and Unit Setup Configure available accommodations within the property:
+Room/Unit Name (e.g., Deluxe Double Room)
+
+Number of Units
+
+Room Size (in sq. meters)
+
+Bed Types (Queen, Twin, Sofa Bed, etc.)
+
+Bathroom Type (Private or Shared)
+
+Amenities:
+
+AC, Wi-Fi, TV, Balcony, Kitchen, Wardrobe, etc.
+
+📸 Photos & Media Visual content is key for bookings:
+High-resolution Image Upload
+
+Tagging System (label rooms like “Bedroom”, “View”, “Pool”)
+
+Custom Photo Sequencing
+
+Video Upload (optional, region-specific)
+
+💵 Pricing and Availability Set up clear pricing rules and revenue models:
+Base Nightly Rate
+
+Extra Guest Charges
+
+Weekend Pricing
+
+Seasonal/Promotional Pricing
+
+Min/Max Stay Rules
+
+Currency Selection
+
+📆 Calendar & Availability Flexible tools for managing room availability:
+Block/Unblock Specific Dates
+
+Set Availability Per Day
+
+iCal Sync with platforms like Airbnb, Agoda for cross-platform booking prevention
+
+📜 Policies Define property-specific rules and guest expectations:
+Cancellation Policy (Flexible, Moderate, Non-refundable)
+
+Check-in/Check-out Timings
+
+Child and Extra Bed Policy
+
+Pet Policy
+
+Smoking Policy
+
+💳 Payment Setup Configure payment collection options and taxes:
+Payment Mode:
+
+Pay at Property
+
+Pay Online via OTA
+
+Virtual Credit Card Support
+
+Tax / VAT Setup
+
+Security Deposit Options (refundable or non-refundable)
+
+📈 Commission & Agreements Partner agreement setup for platform integration:
+Accept Booking Commission Model (typically 15% or region-based)
+
+Terms & Conditions Agreement
+
+Document Submission (ID proof, ownership proof if required)
+
+🧾 Legal & Tax Information Support for compliance and financial reporting:
+GST Number (Applicable in India)
+
+Business Registration Certificate
+
+Local Tax Details (e.g., city tax, tourism tax)
+
+🚀 Go Live & Dashboard Access Once setup is complete:
+Property Goes Live on Platform
+
+Extranet Access to:
+
+Manage bookings
+
+Update availability
+
+View guest messages
+
+Analyze performance through reviews and metrics
+
+🔄 OTA & Smart Tools
+Channel Manager Integration (to sync with multiple OTAs)
+
+Smart Pricing Tools (to auto-adjust rates based on demand)
+
+🍽️ Restaurant Module – Overview
+The Restaurant module is designed to handle all aspects of food service management, including order processing, menu configuration, and billing operations. It allows restaurant staff or administrators to easily manage dine-in, take-away, and online food orders in real-time.
+
+📚 Sidebar Sections
+The restaurant module includes a dedicated sidebar with the following options:
+
+Orders
+
+Menu Management
+
+Billings
+
+Each section is explained in detail below:
+
+🧾 Orders – Detailed Overview
+The Orders section in the Restaurant module provides a centralized view of all ongoing and past food orders, including table orders (via QR), walk-in orders, and room service. It is designed to support contactless ordering, real-time order monitoring, and managerial oversight.
+
+📱 QR-Based Table Ordering System
+Every table in the restaurant is assigned a unique QR code.
+
+When a guest scans the QR code:
+
+It opens the customer-facing web app or mobile app.
+
+The system automatically links the order to the specific table number.
+
+Guests can:
+
+Browse the menu
+
+Place orders
+
+Request bill — all from their mobile device.
+
+The table-specific order is instantly reflected in the restaurant dashboard.
+
+📋 Types of Orders Displayed
+Orders are categorized and listed under:
+
+Table Orders (via QR)
+
+Walk-in Counter Orders
+
+Room Service Orders (for hotel guests linked to room numbers)
+
+Each order shows:
+
+Order ID
+
+Order Source (Table No., Room No., or Walk-in)
+
+Customer Name (optional for table/walk-in; mandatory for room service)
+
+Items Ordered
+
+Order Status: Pending → Preparing → Ready → Served/Delivered → Completed
+
+Order Time & Duration
+
+Special Instructions (e.g., "No spice", "Allergic to nuts")
+
+🧑‍💼 Manager View & Controls
+The manager dashboard provides a full overview of all orders, including:
+
+✅ Total Orders Today (summary with breakdown by type)
+
+⏱️ Order Timings: View how long each order has been in progress
+
+📦 Order Status Tracking:
+
+Real-time updates as kitchen/waitstaff change the status
+
+💳 Billing Status:
+
+Paid / Unpaid
+
+Payment mode (Cash, UPI, Card, Room Billing)
+
+🔁 Real-Time Sync & Notifications
+Orders update in real time across devices (kitchen, service staff, manager dashboard).
+
+Notifications are triggered:
+
+When a new order is placed
+
+When a dish is ready to serve
+
+When a bill is requested
+
+📈 Analytics (Optional for Manager Section)
+Most ordered dishes today
+
+Average order time
+
+Peak ordering hours
+
+Orders per table/room
+
+Canceled or delayed orders
+
+📋 Menu Management – Detailed Overview
+The Menu Management section allows the restaurant manager to create, edit, organize, and control the visibility of food and beverage items. It supports multiple menus (e.g., Breakfast, Lunch, Dinner, Special Days), item-level controls, and real-time availability toggles.
+
+🧑‍🍳 Key Features
+1️⃣ Create New Menu
+Managers can create custom menus based on:
+
+Time of day (e.g., Breakfast, Lunch, Dinner)
+
+Occasion (e.g., Festival Specials, Weekend Menu)
+
+Category (e.g., Vegetarian, Kids Menu)
+
+Input fields include:
+
+Menu Name
+
+Menu Description (optional)
+
+Menu Cover Photo (optional)
+
+2️⃣ Add Items to a Menu
+For each menu, the manager can add individual food items with detailed information:
+
+Item Name
+
+Description
+
+Price
+
+Food Category (Starter, Main Course, Dessert, Drink, etc.)
+
+Upload Item Image (for digital menus)
+
+Item Tags (e.g., Spicy, Vegan, Gluten-free)
+
+Toggle On/Off: Show or hide the item from the live menu based on stock or availability.
+
+3️⃣ Edit Menu or Items
+Managers can:
+
+Edit the menu title or description
+
+Edit food items – update name, price, photo, or category
+
+Quickly change availability with a toggle switch:
+
+✅ ON → Available for ordering
+
+❌ OFF → Temporarily unavailable or out of stock
+
+4️⃣ Delete Options
+Delete Menu:
+
+Permanently remove an entire menu with all its items (with confirmation prompt).
+
+Delete Item:
+
+Remove individual food items from any menu.
+
+5️⃣ Drag & Sort Functionality (optional)
+Reorder food items inside a menu manually to control how they appear on the UI (e.g., specials on top).
+
+6️⃣ Status Indicators
+Live menu displays can highlight:
+
+Available Now
+
+Out of Stock
+
+Coming Soon
+
+👨‍💻 Manager View – Example Workflow
+➕ Click "Create New Menu"
+
+📝 Add items using "Add Item"
+
+🖼️ Upload food photos and fill item details
+
+🔁 Use Toggle to activate or deactivate items
+
+✏️ Edit or delete menus and items anytime
+
+✅ Changes reflect in real-time on the customer ordering interface
+
+💳 Billing – Overview
+The Billing section gives managers and staff a real-time visual overview of all tables and their statuses, and provides a seamless way to view and finalize bills for occupied tables.
+
+🪑 Table Status Overview
+A visual table map/grid view is displayed, showing:
+
+Table Number (e.g., Table 1, Table 2, etc.)
+
+Number of Seats (e.g., 2-seater, 4-seater)
+
+Current Status of each table with color indicators:
+
+🟢 Available – Table is empty and ready for new guests.
+
+🔴 Occupied – Guests are currently dining; orders in progress.
+
+🟡 Reserved – Table is reserved for an upcoming customer.
+
+Each table box/card includes:
+
+Table No.
+
+Seats (optional)
+
+Real-time status
+
+Clickable action
+
+🧾 Billing Summary for Occupied Tables
+When the manager clicks on an Occupied table:
+
+👉 A detailed Billing Summary Panel slides in or opens:
+Table No. & Seats
+
+Order Summary:
+
+List of all items ordered
+
+Quantity, Price per item
+
+Subtotal
+
+Taxes (if applicable)
+
+Discounts (if applied)
+
+Total Bill Amount
+
+💵 Billing Options
+Manager or cashier can:
+
+✅ Finalize Bill – Confirm total and generate final invoice
+
+🖨️ Print Bill – Trigger print dialog or receipt printer
+
+💳 Select Payment Mode:
+
+Cash
+
+UPI/QR Code
+
+Credit/Debit Card
+
+Room Charge (if integrated with hospitality system)
+
+🧾 Mark as Paid – Update table status to Available
+
+🔄 Integration with Orders Section
+Billing is automatically updated in real-time based on orders placed from:
+
+Room service
+
+QR code-based table orders
+
+Walk-in orders
+
+✅ Benefits
+Live monitoring of restaurant floor status
+
+Fast and transparent billing process
+
+Easy integration with kitchen orders and hospitality module
+
+Efficient turnover of tables by freeing them post-payment
+
+### 🧩 Complete Backend Integration & Data Flow Guide
+This document covers how:
+
+The PostgreSQL schema is structured
+The Express backend fetches data
+The frontend should call APIs for every major feature
+--- ## 🔧 TECHNOLOGY STACK
+Frontend: React + TypeScript
+Backend: Node.js + Express + TypeScript
+Database: PostgreSQL
+Auth: Dummy login (admin / admin)
+--- ## 🗃️ DATABASE SCHEMA ### 1. `users`
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+### 2. `properties`
+
+CREATE TABLE properties (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  rating INT,
+  languages TEXT[],
+  address TEXT,
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION
+);
+### 3. `rooms`
+
+CREATE TABLE rooms (
+  id SERIAL PRIMARY KEY,
+  property_id INT REFERENCES properties(id),
+  room_number VARCHAR(10),
+  room_type TEXT,
+  size INT,
+  beds TEXT,
+  bathroom_type TEXT,
+  amenities TEXT[],
+  price NUMERIC,
+  status TEXT DEFAULT 'available'
+);
+### 4. `reservations`
+
+CREATE TABLE reservations (
+  id SERIAL PRIMARY KEY,
+  guest_name TEXT,
+  contact_number TEXT,
+  source TEXT,
+  check_in DATE,
+  check_out DATE,
+  room_id INT REFERENCES rooms(id),
+  status TEXT DEFAULT 'confirmed',
+  total_price NUMERIC
+);
+### 5. `menus`
+
+CREATE TABLE menus (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  description TEXT
+);
+### 6. `menu_items`
+
+CREATE TABLE menu_items (
+  id SERIAL PRIMARY KEY,
+  menu_id INT REFERENCES menus(id),
+  name TEXT,
+  description TEXT,
+  price NUMERIC,
+  image_url TEXT,
+  category TEXT,
+  tags TEXT[],
+  available BOOLEAN DEFAULT true
+);
+### 7. `restaurant_tables`
+
+CREATE TABLE restaurant_tables (
+  id SERIAL PRIMARY KEY,
+  table_number INT,
+  seats INT,
+  status TEXT DEFAULT 'available'
+);
+### 8. `orders`
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  order_source TEXT,
+  table_id INT,
+  room_id INT,
+  status TEXT DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+### 9. `order_items`
+
+CREATE TABLE order_items (
+  id SERIAL PRIMARY KEY,
+  order_id INT REFERENCES orders(id),
+  item_id INT REFERENCES menu_items(id),
+  quantity INT,
+  special_instructions TEXT
+);
+--- ## 🔁 BACKEND DATA FETCHING LOGIC (Express + pg) ### 1. Login
+
+POST /api/login
+body: { username, password }
+→ Validate against `users` table
+### 2. Dashboard KPIs
+
+GET /api/dashboard/kpi
+→ Fetch:
+- COUNT of today's arrivals from reservations WHERE check_in = today
+- COUNT of today's departures WHERE check_out = today
+- % of booked rooms: total booked / total rooms * 100
+### 3. Reservation Tables (Arrivals, Departures, Stayovers, In-house)
+
+GET /api/dashboard/reservations?type=arrivals|departures|stayovers|inhouse
+→ Dynamic WHERE clauses:
+- arrivals: check_in = today
+- departures: check_out = today
+- stayovers: check_in < today AND check_out > today
+- inhouse: status = 'checked-in'
+### 4. New Reservation
+
+POST /api/reservations
+body: { guest_name, contact_number, check_in, check_out, room_id, source }
+→ Insert into reservations
+→ Update room.status = 'booked'
+### 5. Calendar View
+
+GET /api/calendar/reservations?start=2025-08-01&end=2025-08-07
+→ Fetch all reservations between date range with room_id and status
+### 6. Reservation Details
+
+GET /api/reservations/:id
+→ JOIN reservations + rooms + properties to show full info
+### 7. Update Reservation
+
+PATCH /api/reservations/:id
+→ Update status or change dates, guests
+### 8. Property & Room Setup
+
+POST /api/properties
+POST /api/rooms
+GET /api/properties
+GET /api/rooms
+→ Insert and fetch from respective tables
+### 9. Menu Management
+
+GET /api/menus
+POST /api/menus
+POST /api/menus/:id/items
+PATCH /api/menu-items/:id
+DELETE /api/menu-items/:id
+### 10. Orders Management
+
+GET /api/orders
+POST /api/orders
+PATCH /api/orders/:id/status
+### 11. Billing (Restaurant)
+
+GET /api/billing/tables
+→ SELECT all restaurant_tables with status
+
+GET /api/billing/:tableId
+→ JOIN orders + order_items + menu_items WHERE table_id = X AND status != 'paid'
+
+POST /api/billing/:tableId/pay
+→ Mark orders as paid, update table.status = 'available'
+--- ## 🔁 FRONTEND DATA FLOW (React + Axios) ### KPI Example
+
+useEffect(() => {
+  axios.get('/api/dashboard/kpi').then(res => setKPI(res.data));
+}, []);
+### Reservation Tabs
+
+useEffect(() => {
+  axios.get(`/api/dashboard/reservations?type=${activeTab}`).then(res => setList(res.data));
+}, [activeTab]);
+### Create Reservation
+
+const onSubmit = (data) => {
+  axios.post('/api/reservations', data).then(() => reload());
+}
+### Menu Fetching
+
+useEffect(() => {
+  axios.get('/api/menus').then(res => setMenus(res.data));
+}, []);
+---
+This full guide gives you:
+
+Complete database schema
+All RESTful endpoints
+Fetching strategies (backend + frontend)
+develop the backend and connect the database and fetch the dada from the database intigrate complete full ingigration of backend and  frontend and database
